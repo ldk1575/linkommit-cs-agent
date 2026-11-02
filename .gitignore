@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 # results/ 는 올린다 — 모델 이름·측정일·점수만 있고 키는 없다(REPORT 4번의 근거)
+# Claude Code 도구가 만드는 작업 상태 — 저장소에 올리지 않는다
+.omc/
