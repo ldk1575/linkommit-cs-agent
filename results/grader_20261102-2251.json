@@ -1,0 +1,348 @@
+{
+  "measured_at": "2026-11-02 22:51",
+  "kind": "grader",
+  "tag": "grader-check",
+  "models": {
+    "router": "openai:gemini-flash-latest",
+    "answer": "openai:gemini-2.5-flash",
+    "judge": "openai:gemini-flash-latest"
+  },
+  "gate_threshold": 0.5,
+  "ok": true,
+  "items": [
+    {
+      "kind": "모범",
+      "id": "O1",
+      "pass": true,
+      "reason": "답변에 옵션을 직접 골라야 하며 기본 옵션 자동 선택이 안 된다는 내용과, 미선택 시 옵션 선택 안내가 나온다는 내용이 모두 포함되어 있습니다. 금지 항목인 기본 옵션 자동 선택은 부정되었으므로 위반하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "O2",
+      "pass": true,
+      "reason": "답변에 재고가 입력된 옵션은 재고까지만 주문 가능하다는 점과 재고 초과 수량 선택 불가 및 남은 수량 안내 사실이 모두 포함되어 있으며, 금지된 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "O3",
+      "pass": true,
+      "reason": "답변에 세 가지 동의 항목 내용과 결제하기를 누르는 것이 곧 동의라는 사실이 모두 명시되어 있고, 별도 체크박스 없이 진행된다고 하여 금지 항목을 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "O4",
+      "pass": true,
+      "reason": "must 항목이 없으며, 답변에 forbid에 해당하는 결제 수단 관련 언급 없이 담당자 이관 안내만 포함되어 있습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "P1",
+      "pass": true,
+      "reason": "답변에 상품 상세의 상품정보제공고시 탭에서 확인 가능하며 표 형태로 보인다는 내용이 모두 포함되어 있고, 별도 문서 파일로 내려받아야 한다는 금지 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "P2",
+      "pass": true,
+      "reason": "답변에 품절 옵션은 고를 수 없다는 내용과 직접 주소를 열어도 품절 안내와 함께 돌아가 주문할 수 없다는 내용이 모두 포함되어 있으며, 금지된 대기 주문 접수 관련 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "P3",
+      "pass": true,
+      "reason": "답변에 살 수 없는 상품의 버튼 비활성화 및 이유 문구 표시, 옵션 품절 시 버튼이 눌리지 않는다는 사실이 모두 포함되어 있으며 금지 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "P4",
+      "pass": true,
+      "reason": "답변은 재입고 일정 안내가 어려워 담당자에게 전달하겠다는 내용이며, 금지된 사실(9월 15일 입고 예정, 재입고 알림 신청 가능)을 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "S1",
+      "pass": true,
+      "reason": "상품 상세에서 '결제 후 n영업일 이내 출고' 문구로 확인한다는 내용과 판매자가 정하여 상품마다 다를 수 있다는 사실이 모두 명시되었으며, 금지 항목은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "S2",
+      "pass": true,
+      "reason": "답변에 무료배송이라는 점과 단순 변심 반품 및 교환 시 배송비가 청구된다는 사실이 모두 포함되어 있으며, 배송비 3,000원에 대한 언급은 없습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "S3",
+      "pass": true,
+      "reason": "답변에 취소된 주문은 배송 상태와 무관하게 취소됨이 먼저 보인다는 점과 현재 상태가 취소됨이라는 사실이 모두 명시되어 있으며, 금지된 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "S4",
+      "pass": true,
+      "reason": "must 항목이 없으며, forbid에 해당하는 쿠폰/적립금 지급이나 지연 보상에 대한 내용을 사실로 안내하지 않고 정해진 내용이 없어 담당자에게 인계하겠다고 답변했습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "C1",
+      "pass": true,
+      "reason": "배송 상태가 준비중일 때 주문 상세에서 즉시 취소할 수 있다는 사실과 판매자 승인 단계가 없다는 사실이 모두 잘 포함되었으며, 금지 항목은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "C2",
+      "pass": true,
+      "reason": "답변에 수량 2개 이상 시 일부 취소 가능 여부와 단가에 따른 환불 금액(10,900원)이 모두 명시되어 있고, 금지 항목인 전체 취소만 가능하다는 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "C3",
+      "pass": true,
+      "reason": "답변에 배송 시작 후 취소 불가, 주문 화면 내 직접 신청 기능 부재 및 문의 안내, 단순 변심 시 배송비 청구 내용이 모두 포함되어 있으며 forbid 내용을 사실로 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "C4",
+      "pass": true,
+      "reason": "must 항목이 없으며, 환불 기간이 정해져 있지 않다며 담당자 전달을 안내하였으므로 forbid 항목을 사실로 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "X1",
+      "pass": true,
+      "reason": "must 항목이 없으며, 담당자 전달 답변으로 금지된 사실을 전혀 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "X2",
+      "pass": true,
+      "reason": "must 항목이 없으며, 입점 절차나 필요 서류를 안내하지 않고 담당자 이관으로 응대하여 forbid 항목을 위반하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "X3",
+      "pass": true,
+      "reason": "답변에서 정산 일정이나 수수료율을 안내하지 않고 담당자에게 전달하겠다고 응대하였으므로 금지 항목을 위반하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "X4",
+      "pass": true,
+      "reason": "must 항목이 없으며, 답변에서 마이페이지의 탈퇴 메뉴에서 직접 탈퇴할 수 있다는 forbid 내용을 언급하지 않고 담당자 이관을 안내했습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "오답",
+      "id": "O1",
+      "pass": false,
+      "reason": "must 항목의 내용은 모두 답변에 충족되어 있으나, 답변 끝부분에 금지 사항인 '기본 옵션이 자동으로 선택된다'라는 문장이 사실로 언급되어 forbid에 적발되었습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        true
+      ]
+    },
+    {
+      "kind": "오답",
+      "id": "C2",
+      "pass": false,
+      "reason": "답변에 must의 두 가지 사실이 모두 포함되어 있으나, forbid 항목인 '일부 취소는 안 되고 전체 취소만 된다'는 내용도 그대로 언급되었습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        true
+      ]
+    },
+    {
+      "kind": "오답",
+      "id": "O4",
+      "pass": false,
+      "reason": "답변에서 '신용카드로 결제할 수 있다'라고 사실로 언급하여 forbid 0번에 해당합니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "사실 누락",
+      "id": "O1",
+      "pass": false,
+      "reason": "답변에 옵션 선택 필수 여부나 미선택 시 동작에 대한 must 항목의 사실이 전혀 담겨 있지 않으며, forbid 항목도 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        false,
+        false
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "표현만 바꿈",
+      "id": "O1",
+      "pass": true,
+      "reason": "답변에 옵션을 직접 선택해야 하고 자동 선택되지 않는다는 점과, 선택하지 않으면 안내가 나온다는 내용이 모두 포함되어 있으며 금지 항목을 사실로 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    }
+  ]
+}

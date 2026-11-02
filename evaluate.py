@@ -27,7 +27,7 @@ BLANK_ITEMS = {"O4", "P4", "S4", "C4"}   # 정답이 `[비움]` 때문에 넘기
 
 
 def _stamp() -> str:
-    return datetime.now().strftime("%Y%m%d-%H%M")
+    return datetime.now().strftime("%Y%m%d-%H%M%S")
 
 
 def _meta(tag: str, kind: str) -> dict:
@@ -89,7 +89,7 @@ def check_grader() -> bool:
 
     wrong_ids = ["O1", "C2", "O4"]   # ANSWER 두 건(사실·숫자)과 ESCALATE 한 건(지어낸 답)
     wrong = {i: {"action": by_id[i]["action"], "answer": by_id[i]["reference"] + " " + by_id[i]["forbid"][0] + "."} for i in wrong_ids}
-    paraphrase = "옵션이 있는 상품은 고객님이 옵션을 직접 선택하셔야 하고, 선택하기 전에는 구매가 진행되지 않으며 옵션을 고르라는 안내가 나옵니다."
+    paraphrase = "옵션이 있는 상품은 고객님이 직접 고르셔야 하고, 알아서 기본 옵션이 정해지는 일은 없어요. 고르지 않은 채 구매를 누르면 진행되지 않고 옵션을 고르라는 안내가 나옵니다."
     vague = "자세한 내용은 상품 상세 화면에서 확인해 주세요."
     jobs = ([("모범", g["id"], lambda g=g: ref(g)) for g in gold]
             + [("오답", i, lambda i=i: grade(by_id[i], wrong[i])) for i in wrong_ids]
