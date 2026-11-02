@@ -170,7 +170,102 @@ def check_separation() -> bool:
     return ok
 
 
+GOLDEN_PATH = ROOT / "data" / "goldenset.json"
+FEWSHOT_PATH = ROOT / "data" / "fewshot.json"
+
+
+def _load(path: Path) -> list[dict]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def check_goldenset() -> bool:
+    """P4 — 평가용 20건의 분포 · 넘기기 8건 · 도구 규칙 · 모범 답안의 인용이 조회 범위 안에 있는지."""
+    mapping, chapters, gold = load_mapping(), load_chapters(), _load(GOLDEN_PATH)
+    cats, always = mapping["categories"], mapping["always"]
+    tool_slug = {v["tool"]: v["chapter"] for v in cats.values() if v["tool"]}
+    clause_tag = {c.id: c.tag for ch in chapters.values() for c in ch["clauses"]}
+    problems: list[str] = []
+
+    ids = [g["id"] for g in gold]
+    if len(set(ids)) != len(ids):
+        problems.append("id 중복")
+    per_cat = {c: sum(g["category"] == c for g in gold) for c in cats}
+    n_escalate = sum(g["action"] == "ESCALATE" for g in gold)
+    if len(gold) != 20:
+        problems.append(f"건수 {len(gold)} (20 이어야 함)")
+    if any(n != 4 for n in per_cat.values()):
+        problems.append(f"카테고리별 건수 {per_cat} (각 4 이어야 함)")
+    if n_escalate != 8:
+        problems.append(f"넘기기 정답 {n_escalate}건 (8 이어야 함)")
+
+    for g in gold:
+        gid, tools = g["id"], g["tools"]
+        if g["category"] not in cats or g["action"] not in ("ANSWER", "ESCALATE"):
+            problems.append(f"{gid}: category/action 값")
+        if any(t not in tool_slug for t in tools) or len(set(tools)) != len(tools):
+            problems.append(f"{gid}: tools 값 {tools}")
+        cat_tool = cats[g["category"]]["tool"]
+        if g["category"] == "OUT_OF_SCOPE":
+            if tools or g["action"] != "ESCALATE":
+                problems.append(f"{gid}: 범위 밖은 tools 비고 ESCALATE 이어야 함")
+        elif cat_tool not in tools:
+            problems.append(f"{gid}: 자기 카테고리 도구 {cat_tool} 가 tools 에 없음")
+        if len(tools) == 2 and not g.get("boundary"):
+            problems.append(f"{gid}: tools 가 둘인데 boundary 가 없음")
+        if g.get("boundary") and (len(tools) != 2 or cats[g["boundary"]]["tool"] not in tools):
+            problems.append(f"{gid}: boundary {g['boundary']} 의 도구가 tools 에 없음")
+        if not g["forbid"] or not g["question"].strip() or not g["reference"].strip():
+            problems.append(f"{gid}: forbid/question/reference 비어 있음")
+        if g["action"] == "ANSWER" and not g["must"]:
+            problems.append(f"{gid}: ANSWER 인데 must 가 비어 있음")
+        if g["action"] == "ESCALATE" and g["must"]:
+            problems.append(f"{gid}: ESCALATE 인데 must 가 있음")
+        # 모범 답안의 인용 — ANSWER 는 1개 이상, 조회한 장 안에 있는 [확정] 조항이어야 한다
+        cited = CLAUSE_ID_RE.findall(g["reference"])
+        allowed = set(always) | {tool_slug[t] for t in tools if t in tool_slug}
+        if g["action"] == "ANSWER" and not cited:
+            problems.append(f"{gid}: 모범 답안에 인용이 없음")
+        if g["action"] == "ESCALATE" and cited:
+            problems.append(f"{gid}: 넘기기 모범 답안에 인용이 있음")
+        for cid in cited:
+            if cid.split("-")[1] not in allowed:
+                problems.append(f"{gid}: 인용 {cid} 가 조회한 장 밖")
+            if clause_tag.get(cid) != "확정":
+                problems.append(f"{gid}: 인용 {cid} 가 [확정] 조항이 아님")
+
+    print("[P4] 평가용 goldenset.json")
+    print(f"  건수 {len(gold)} · 카테고리별 {per_cat} · 넘기기 정답 {n_escalate}건({n_escalate * 100 // max(len(gold), 1)}%) · 경계 문항 {[g['id'] for g in gold if g.get('boundary')]}")
+    for p in problems:
+        print("  ✗", p)
+    return not problems
+
+
+def _norm(s: str) -> str:
+    return re.sub(r"[\s\W_]+", "", s)
+
+
+def check_split() -> bool:
+    """P4 — 평가용과 예시용의 id · 질문 문장 중복 0, 거의 같은 문장(유사도 0.7 이상)도 0."""
+    from difflib import SequenceMatcher
+
+    gold, shots = _load(GOLDEN_PATH), _load(FEWSHOT_PATH)
+    same_id = {g["id"] for g in gold} & {s["id"] for s in shots}
+    same_q = {_norm(g["question"]) for g in gold} & {_norm(s["question"]) for s in shots}
+    close = [
+        (g["id"], s["id"], round(r, 2))
+        for g in gold for s in shots
+        if (r := SequenceMatcher(None, _norm(g["question"]), _norm(s["question"])).ratio()) >= 0.7
+    ]
+    bad_shot = [s["id"] for s in shots if s["category"] not in load_mapping()["categories"]
+                or (s["secondary"] is not None and s["secondary"] not in load_mapping()["categories"])
+                or not 0 <= s["confidence"] <= 1]
+    print("[P4] 예시용 fewshot.json 과 누수 검사")
+    print(f"  예시용 {len(shots)}건 · 카테고리 {sorted({s['category'] for s in shots})}")
+    print(f"  id 중복 {len(same_id)} · 질문 문장 중복 {len(same_q)} · 거의 같은 문장 {close or 0} · 값 오류 {bad_shot or 0}")
+    return len(shots) >= 6 and not (same_id or same_q or close or bad_shot)
+
+
 if __name__ == "__main__":
-    results = [check_mapping(), check_separation()]
+    results = [check_mapping(), check_separation(), check_goldenset(), check_split()]
     print("전체:", "통과" if all(results) else "실패")
     raise SystemExit(0 if all(results) else 1)

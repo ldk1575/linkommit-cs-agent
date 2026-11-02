@@ -1,0 +1,142 @@
+[
+  {
+    "id": "O1", "category": "ORDER_PAY", "question": "옵션 안 고르고 바로 구매 누르면 그냥 주문되나요?",
+    "action": "ANSWER", "tools": ["get_order_policy"],
+    "must": ["옵션은 소비자가 직접 골라야 하고 기본 옵션이 자동 선택되지 않는다", "고르지 않으면 주문으로 넘어가지 않고 옵션을 고르라는 안내가 나온다"],
+    "forbid": ["기본 옵션이 자동으로 선택된다"],
+    "reference": "옵션이 있는 상품은 직접 골라야 하며 기본 옵션이 자동으로 선택되는 일은 없습니다. 옵션을 고르지 않고 「구매하기」를 누르면 옵션을 고르는 자리로 이동하고 「○○을 골라 주세요」 안내가 나옵니다. [CS-order-3] [CS-order-4]"
+  },
+  {
+    "id": "O2", "category": "ORDER_PAY", "boundary": "PRODUCT", "question": "남은 재고보다 많이 시키면 어떻게 돼요?",
+    "action": "ANSWER", "tools": ["get_order_policy", "get_product_policy"],
+    "must": ["재고가 입력된 옵션은 재고까지만 주문할 수 있다", "재고보다 많은 수량은 고를 수 없고 남은 수량이 안내된다"],
+    "forbid": ["재고를 넘긴 분량은 입고된 뒤에 따로 보내 준다"],
+    "reference": "재고가 입력된 옵션은 재고까지만 주문할 수 있어서, 재고보다 많은 수량은 고를 수 없고 「남은 수량 n개」가 보입니다. [CS-order-5]"
+  },
+  {
+    "id": "O3", "category": "ORDER_PAY", "question": "결제하기 누르기 전에 동의해야 하는 게 뭐예요?",
+    "action": "ANSWER", "tools": ["get_order_policy"],
+    "must": ["동의 항목은 세 가지(구매 조건 확인 및 결제 진행, 개인정보 제3자 제공, 개인정보 수집·이용)", "결제하기를 누르는 것이 곧 동의다"],
+    "forbid": ["동의 항목마다 체크박스를 눌러야 한다"],
+    "reference": "결제 전 동의 항목은 구매 조건 확인 및 결제 진행, 판매자에 대한 개인정보 제3자 제공, 개인정보 수집·이용의 세 가지입니다. [CS-order-7] 별도 체크박스 없이 「결제하기」를 누르는 것이 곧 동의입니다. [CS-order-8]"
+  },
+  {
+    "id": "O4", "category": "ORDER_PAY", "question": "결제는 어떤 방법으로 하나요?",
+    "action": "ESCALATE", "tools": ["get_order_policy"],
+    "must": [],
+    "forbid": ["신용카드로 결제할 수 있다", "카카오페이 등 간편결제를 쓸 수 있다", "계좌이체가 된다"],
+    "reference": "죄송합니다. 결제 방법은 이 안내에 정해진 내용이 없어 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
+  },
+  {
+    "id": "P1", "category": "PRODUCT", "question": "상품정보제공고시는 어디서 봐요?",
+    "action": "ANSWER", "tools": ["get_product_policy"],
+    "must": ["상품 상세의 「상품정보제공고시」 탭에서 본다", "판매자가 입력한 항목이 표로 보인다"],
+    "forbid": ["별도 문서 파일로 내려받아야 한다"],
+    "reference": "상품 상세에 있는 「상품정보제공고시」 탭에서 볼 수 있습니다. [CS-product-1] 판매자가 입력한 항목이 「항목 — 값」 표로 보입니다. [CS-product-4]"
+  },
+  {
+    "id": "P2", "category": "PRODUCT", "question": "옵션에 품절이라고 뜨는데 그래도 주문할 수 있어요?",
+    "action": "ANSWER", "tools": ["get_product_policy"],
+    "must": ["품절 옵션은 고를 수 없다", "주소를 직접 열어도 품절 안내와 함께 돌아가 주문할 수 없다"],
+    "forbid": ["품절 옵션도 대기 주문으로 접수된다"],
+    "reference": "재고가 0인 옵션은 「품절」로 표시되어 고를 수 없습니다. [CS-product-6] 주문서 주소를 직접 열어도 「품절된 옵션입니다.」 안내와 함께 상품 화면으로 돌아가므로 주문할 수 없습니다. [CS-product-8]"
+  },
+  {
+    "id": "P3", "category": "PRODUCT", "question": "구매하기 버튼이 안 눌러져요",
+    "action": "ANSWER", "tools": ["get_product_policy"],
+    "must": ["지금 살 수 없는 상품이면 버튼이 비활성화되고 이유 문구가 나온다", "옵션이 모두 품절이어도 버튼이 눌리지 않는다"],
+    "forbid": ["새로고침하면 다시 눌린다"],
+    "reference": "지금 살 수 없는 상품은 구매 버튼이 비활성화되고 「판매 예정」 「판매 종료」 「판매 중이 아닙니다」 중 이유 문구가 나옵니다. [CS-product-10] 옵션이 모두 품절이면 버튼이 「품절」로 바뀌어 눌리지 않습니다. [CS-product-7]"
+  },
+  {
+    "id": "P4", "category": "PRODUCT", "boundary": "SHIPPING", "question": "품절이던 거 다시 들어오면 언제쯤 받을 수 있어요?",
+    "action": "ESCALATE", "tools": ["get_product_policy", "get_shipping_policy"],
+    "must": [],
+    "forbid": ["9월 15일에 다시 입고될 예정이다", "재입고 알림을 신청할 수 있다"],
+    "reference": "죄송합니다. 재입고 일정은 이 안내에 정해진 내용이 없어 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
+  },
+  {
+    "id": "S1", "category": "SHIPPING", "question": "주문하면 언제 출고돼요?",
+    "action": "ANSWER", "tools": ["get_shipping_policy"],
+    "must": ["결제 후 n영업일 이내 출고이고 상품 상세에서 확인한다", "출고 기한은 판매자가 정해 상품마다 다를 수 있다"],
+    "forbid": ["결제한 당일에 출고된다", "모든 상품이 반드시 3일 안에 도착한다"],
+    "reference": "출고 기한은 판매자가 1영업일부터 14영업일 사이로 정하고 정하지 않으면 3영업일이 기본이라, 상품마다 다를 수 있습니다. [CS-shipping-2] 상품 상세의 「결제 후 n영업일 이내 출고」 문구에서 확인하실 수 있습니다. [CS-shipping-1]"
+  },
+  {
+    "id": "S2", "category": "SHIPPING", "boundary": "CANCEL_REFUND", "question": "배송비 따로 내야 하나요?",
+    "action": "ANSWER", "tools": ["get_shipping_policy", "get_cancel_policy"],
+    "must": ["배송비는 없고 무료배송이다", "단순 변심 반품·교환 때는 배송비가 청구된다"],
+    "forbid": ["배송비 3,000원이 부과된다"],
+    "reference": "배송비는 없고 무료배송입니다. [CS-shipping-3] 다만 단순 변심으로 반품하거나 교환하는 경우에는 배송비가 청구됩니다. [CS-cancel-12]"
+  },
+  {
+    "id": "S3", "category": "SHIPPING", "boundary": "CANCEL_REFUND", "question": "주문내역에 배송중이랑 취소됨이 같이 떠요. 뭐가 맞는 거예요?",
+    "action": "ANSWER", "tools": ["get_shipping_policy", "get_cancel_policy"],
+    "must": ["취소된 주문은 배송 상태가 무엇이든 「취소됨」이 먼저 보인다", "취소됨이 현재 상태다"],
+    "forbid": ["배송 상태가 우선이라 배송이 계속 진행 중이다"],
+    "reference": "취소된 주문은 배송 상태가 무엇이든 「취소됨」이 먼저 보이므로 「취소됨」이 현재 상태입니다. [CS-shipping-6] [CS-cancel-11]"
+  },
+  {
+    "id": "S4", "category": "SHIPPING", "question": "배송이 너무 늦어지면 보상 같은 거 받을 수 있나요?",
+    "action": "ESCALATE", "tools": ["get_shipping_policy"],
+    "must": [],
+    "forbid": ["쿠폰이나 적립금을 지급한다", "일정 기간 지연되면 보상한다"],
+    "reference": "죄송합니다. 배송 지연 시 보상은 이 안내에 정해진 내용이 없어 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
+  },
+  {
+    "id": "C1", "category": "CANCEL_REFUND", "boundary": "ORDER_PAY", "question": "방금 주문했는데 바로 취소돼요?",
+    "action": "ANSWER", "tools": ["get_cancel_policy", "get_order_policy"],
+    "must": ["배송 상태가 준비중이면 주문 상세에서 직접 즉시 취소할 수 있다", "판매자 승인 단계가 없다"],
+    "forbid": ["판매자가 승인한 뒤에 취소된다", "취소 수수료가 붙는다"],
+    "reference": "배송 상태가 「준비중」이면 주문 상세의 「주문 취소」 버튼으로 바로 취소할 수 있고, 판매자의 승인을 기다리는 단계는 없습니다. [CS-cancel-1]"
+  },
+  {
+    "id": "C2", "category": "CANCEL_REFUND", "question": "개당 10,900원짜리 3개 주문했는데 1개만 취소하면 얼마 돌려받아요?",
+    "action": "ANSWER", "tools": ["get_cancel_policy"],
+    "must": ["수량이 2개 이상이면 일부만 취소할 수 있다", "환불액은 취소 수량 곱하기 단가라서 10,900원이다"],
+    "forbid": ["일부 취소는 안 되고 전체 취소만 된다"],
+    "reference": "배송 상태가 「준비중」이라면 [CS-cancel-1] 수량이 2개 이상인 주문은 일부만 취소할 수 있습니다. [CS-cancel-2] 환불액은 취소 수량에 단가를 곱한 금액이라 1개를 취소하면 10,900원입니다. [CS-cancel-3]"
+  },
+  {
+    "id": "C3", "category": "CANCEL_REFUND", "question": "이미 배송 시작됐는데 취소나 반품은 어떻게 해요?",
+    "action": "ANSWER", "tools": ["get_cancel_policy"],
+    "must": ["배송이 시작되면 취소할 수 없다", "반품·교환을 주문 화면에서 직접 신청하는 기능은 아직 없고 문의로 안내된다", "단순 변심 반품·교환은 배송비가 청구된다"],
+    "forbid": ["주문 화면에서 반품을 직접 신청할 수 있다"],
+    "reference": "배송이 시작된 주문은 취소할 수 없고 고객센터 문의 안내가 나옵니다. [CS-cancel-7] 반품·교환을 주문 화면에서 직접 신청하는 기능도 아직 없습니다. [CS-cancel-8] 단순 변심으로 반품·교환하면 배송비가 청구됩니다. [CS-cancel-12]"
+  },
+  {
+    "id": "C4", "category": "CANCEL_REFUND", "question": "취소하면 환불금은 며칠 뒤에 들어와요?",
+    "action": "ESCALATE", "tools": ["get_cancel_policy"],
+    "must": [],
+    "forbid": ["영업일 3일 이내에 환불된다", "취소 즉시 환불금이 입금된다"],
+    "reference": "죄송합니다. 환불금이 들어오는 기간은 이 안내에 정해진 내용이 없어 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
+  },
+  {
+    "id": "X1", "category": "OUT_OF_SCOPE", "question": "쿠폰이나 적립금 쓸 수 있어요?",
+    "action": "ESCALATE", "tools": [],
+    "must": [],
+    "forbid": ["신규 가입 쿠폰이 있다", "구매 금액의 일부가 적립된다"],
+    "reference": "죄송합니다. 쿠폰과 적립금은 이 안내에서 다루지 않는 내용이라 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
+  },
+  {
+    "id": "X2", "category": "OUT_OF_SCOPE", "question": "제가 만든 상품을 여기서 팔고 싶은데 어떻게 입점해요?",
+    "action": "ESCALATE", "tools": [],
+    "must": [],
+    "forbid": ["입점 신청 절차와 필요한 서류를 안내한다"],
+    "reference": "죄송합니다. 판매자 입점은 이 안내에서 다루지 않는 내용이라 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
+  },
+  {
+    "id": "X3", "category": "OUT_OF_SCOPE", "question": "제휴링크 수수료는 언제 정산돼요?",
+    "action": "ESCALATE", "tools": [],
+    "must": [],
+    "forbid": ["정산 일정과 수수료율을 안내한다"],
+    "reference": "죄송합니다. 제휴 수수료와 정산은 이 안내에서 다루지 않는 내용이라 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
+  },
+  {
+    "id": "X4", "category": "OUT_OF_SCOPE", "question": "회원 탈퇴하고 내 정보 다 지우고 싶어요",
+    "action": "ESCALATE", "tools": [],
+    "must": [],
+    "forbid": ["마이페이지의 탈퇴 메뉴에서 직접 탈퇴할 수 있다"],
+    "reference": "죄송합니다. 회원 탈퇴와 개인정보 삭제는 이 안내에서 다루지 않는 내용이라 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
+  }
+]
