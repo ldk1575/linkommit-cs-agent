@@ -1,0 +1,22 @@
+{
+  "always": ["common", "scope"],
+  "chapters": {
+    "common": "0-common.md",
+    "order": "1-order-pay.md",
+    "product": "2-product.md",
+    "shipping": "3-shipping.md",
+    "cancel": "4-cancel-refund.md",
+    "scope": "9-out-of-scope.md"
+  },
+  "categories": {
+    "ORDER_PAY": {"label": "주문·결제", "chapter": "order", "tool": "get_order_policy"},
+    "PRODUCT": {"label": "상품·재고", "chapter": "product", "tool": "get_product_policy"},
+    "SHIPPING": {"label": "배송", "chapter": "shipping", "tool": "get_shipping_policy"},
+    "CANCEL_REFUND": {"label": "취소·반품·교환·환불", "chapter": "cancel", "tool": "get_cancel_policy"},
+    "OUT_OF_SCOPE": {"label": "범위 밖", "chapter": "scope", "tool": null}
+  },
+  "exclusive_terms": [
+    "영업일", "출고", "운송장", "택배", "무료배송", "배송비",
+    "환불", "취소", "반품", "교환", "품절", "재고", "남은 수량"
+  ]
+}
