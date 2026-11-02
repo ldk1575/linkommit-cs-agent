@@ -1,0 +1,8 @@
+# 10/30 .venv (파이썬 3.12) 에서 확인한 버전 그대로. 직접 쓰는 패키지만 고정한다.
+langchain==1.4.7
+langchain-core==1.7.3
+langchain-openai==1.7.3
+langgraph==1.2.18
+pydantic==2.14.2
+python-dotenv==1.2.4
+scikit-learn==1.9.1

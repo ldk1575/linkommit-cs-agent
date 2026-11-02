@@ -1,0 +1,7 @@
+# 키·환경 — 저장소에 올리지 않는다 (PRD 규칙 7)
+.env
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# results/ 는 올린다 — 모델 이름·측정일·점수만 있고 키는 없다(REPORT 4번의 근거)
