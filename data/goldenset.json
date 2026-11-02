@@ -7,8 +7,8 @@
     "reference": "옵션이 있는 상품은 직접 골라야 하며 기본 옵션이 자동으로 선택되는 일은 없습니다. 옵션을 고르지 않고 「구매하기」를 누르면 옵션을 고르는 자리로 이동하고 「○○을 골라 주세요」 안내가 나옵니다. [CS-order-3] [CS-order-4]"
   },
   {
-    "id": "O2", "category": "ORDER_PAY", "boundary": "PRODUCT", "question": "남은 재고보다 많이 시키면 어떻게 돼요?",
-    "action": "ANSWER", "tools": ["get_order_policy", "get_product_policy"],
+    "id": "O2", "category": "ORDER_PAY", "question": "남은 재고보다 많이 시키면 어떻게 돼요?",
+    "action": "ANSWER", "tools": ["get_order_policy"],
     "must": ["재고가 입력된 옵션은 재고까지만 주문할 수 있다", "재고보다 많은 수량은 고를 수 없고 남은 수량이 안내된다"],
     "forbid": ["재고를 넘긴 분량은 입고된 뒤에 따로 보내 준다"],
     "reference": "재고가 입력된 옵션은 재고까지만 주문할 수 있어서, 재고보다 많은 수량은 고를 수 없고 「남은 수량 n개」가 보입니다. [CS-order-5]"
@@ -49,8 +49,8 @@
     "reference": "지금 살 수 없는 상품은 구매 버튼이 비활성화되고 「판매 예정」 「판매 종료」 「판매 중이 아닙니다」 중 이유 문구가 나옵니다. [CS-product-10] 옵션이 모두 품절이면 버튼이 「품절」로 바뀌어 눌리지 않습니다. [CS-product-7]"
   },
   {
-    "id": "P4", "category": "PRODUCT", "boundary": "SHIPPING", "question": "품절이던 거 다시 들어오면 언제쯤 받을 수 있어요?",
-    "action": "ESCALATE", "tools": ["get_product_policy", "get_shipping_policy"],
+    "id": "P4", "category": "PRODUCT", "question": "품절이던 거 다시 들어오면 언제쯤 받을 수 있어요?",
+    "action": "ESCALATE", "tools": ["get_product_policy"],
     "must": [],
     "forbid": ["9월 15일에 다시 입고될 예정이다", "재입고 알림을 신청할 수 있다"],
     "reference": "죄송합니다. 재입고 일정은 이 안내에 정해진 내용이 없어 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
@@ -84,8 +84,8 @@
     "reference": "죄송합니다. 배송 지연 시 보상은 이 안내에 정해진 내용이 없어 정확하게 답변드리기 어렵습니다. 담당자가 안내해 드릴 수 있도록 넘겨 드리겠습니다."
   },
   {
-    "id": "C1", "category": "CANCEL_REFUND", "boundary": "ORDER_PAY", "question": "방금 주문했는데 바로 취소돼요?",
-    "action": "ANSWER", "tools": ["get_cancel_policy", "get_order_policy"],
+    "id": "C1", "category": "CANCEL_REFUND", "question": "방금 주문했는데 바로 취소돼요?",
+    "action": "ANSWER", "tools": ["get_cancel_policy"],
     "must": ["배송 상태가 준비중이면 주문 상세에서 직접 즉시 취소할 수 있다", "판매자 승인 단계가 없다"],
     "forbid": ["판매자가 승인한 뒤에 취소된다", "취소 수수료가 붙는다"],
     "reference": "배송 상태가 「준비중」이면 주문 상세의 「주문 취소」 버튼으로 바로 취소할 수 있고, 판매자의 승인을 기다리는 단계는 없습니다. [CS-cancel-1]"

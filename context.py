@@ -183,6 +183,7 @@ def check_goldenset() -> bool:
     mapping, chapters, gold = load_mapping(), load_chapters(), _load(GOLDEN_PATH)
     cats, always = mapping["categories"], mapping["always"]
     tool_slug = {v["tool"]: v["chapter"] for v in cats.values() if v["tool"]}
+    tool_slug_rev = {slug: tool for tool, slug in tool_slug.items()}
     clause_tag = {c.id: c.tag for ch in chapters.values() for c in ch["clauses"]}
     problems: list[str] = []
 
@@ -210,6 +211,13 @@ def check_goldenset() -> bool:
                 problems.append(f"{gid}: 범위 밖은 tools 비고 ESCALATE 이어야 함")
         elif cat_tool not in tools:
             problems.append(f"{gid}: 자기 카테고리 도구 {cat_tool} 가 tools 에 없음")
+        # 라벨 기준(순서 7, tech_spec 5절) — tools = 자기 카테고리 도구 + 모범 답안이 인용한 조항이 든 다른 장의 도구
+        derived = ([cat_tool] if cat_tool else []) + [
+            tool_slug_rev[s] for s in dict.fromkeys(cid.split("-")[1] for cid in CLAUSE_ID_RE.findall(g["reference"]))
+            if s in tool_slug_rev and tool_slug_rev[s] != cat_tool
+        ]
+        if set(derived) != set(tools):
+            problems.append(f"{gid}: tools {tools} 가 라벨 기준(자기 도구 + 인용한 장의 도구) {derived} 와 다름")
         if len(tools) == 2 and not g.get("boundary"):
             problems.append(f"{gid}: tools 가 둘인데 boundary 가 없음")
         if g.get("boundary") and (len(tools) != 2 or cats[g["boundary"]]["tool"] not in tools):

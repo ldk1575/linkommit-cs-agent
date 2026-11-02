@@ -1,0 +1,894 @@
+{
+  "measured_at": "2026-11-02 21:44",
+  "kind": "full",
+  "tag": "relabel-2",
+  "models": {
+    "router": "openai:gemini-flash-latest",
+    "answer": "openai:gemini-2.5-flash",
+    "judge": "openai:gemini-flash-latest"
+  },
+  "gate_threshold": 0.5,
+  "summary": {
+    "n": 20,
+    "errors": 0,
+    "tool_call_score": "14/20",
+    "answer_score": "16/20",
+    "answer_score_answer_items": "8/12",
+    "escalate_expected": 8,
+    "escalated_correctly": 8,
+    "blank_items_filled": [],
+    "answer_without_citation": [],
+    "citation_outside_loaded": [],
+    "forbidden_term_in_answer": [],
+    "retried": [],
+    "total_seconds": 37.1,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "confusion_matrix": {
+      "labels": [
+        "ORDER_PAY",
+        "PRODUCT",
+        "SHIPPING",
+        "CANCEL_REFUND",
+        "OUT_OF_SCOPE"
+      ],
+      "rows_true_cols_pred": [
+        [
+          4,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          4
+        ]
+      ]
+    },
+    "boundary_secondary_correct": "1/2",
+    "false_secondary": [
+      "O1",
+      "O2",
+      "P2",
+      "P4",
+      "S4"
+    ]
+  },
+  "items": [
+    {
+      "id": "O1",
+      "question": "옵션 안 고르고 바로 구매 누르면 그냥 주문되나요?",
+      "expected": "ORDER_PAY",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_order_policy"
+      ],
+      "category": "ORDER_PAY",
+      "secondary": "PRODUCT",
+      "confidence": 0.88,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_order_policy",
+        "get_product_policy"
+      ],
+      "tools_ok": false,
+      "answer": "옵션을 고르지 않고 「구매하기」를 누르면 옵션을 고르는 자리로 화면이 움직이고 「○○을 골라 주세요」 안내가 나옵니다. [CS-order-4] 주문서 주소를 직접 열어도 옵션이 없으면 상품 화면으로 돌려보내고, 서버도 같은 요청을 거절합니다. [CS-order-4]",
+      "citations": [
+        "CS-order-4",
+        "CS-order-4"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": false,
+        "reason": "옵션을 고르지 않으면 주문으로 넘어가지 않고 안내가 나온다는 내용은 담겼으나, 기본 옵션이 자동 선택되지 않는다는 사실은 명시되지 않았습니다. 금지된 내용은 언급되지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          false,
+          true
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": false,
+      "seconds": 14.2,
+      "error": null
+    },
+    {
+      "id": "O2",
+      "question": "남은 재고보다 많이 시키면 어떻게 돼요?",
+      "expected": "ORDER_PAY",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_order_policy"
+      ],
+      "category": "ORDER_PAY",
+      "secondary": "PRODUCT",
+      "confidence": 0.85,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_order_policy",
+        "get_product_policy"
+      ],
+      "tools_ok": false,
+      "answer": "재고가 입력된 옵션은 재고까지만 주문할 수 있습니다. [CS-order-5] 재고보다 많은 수량은 고를 수 없으며, 「남은 수량 n개」가 보입니다. [CS-order-5] 예를 들어 재고가 5개인 옵션에서 6개는 고를 수 없습니다. [CS-order-5]",
+      "citations": [
+        "CS-order-5",
+        "CS-order-5",
+        "CS-order-5"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "답변에 재고까지만 주문 가능하다는 점과 재고보다 많은 수량은 선택할 수 없고 남은 수량이 안내된다는 내용이 모두 포함되어 있으며, 금지된 내용은 언급되지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          true,
+          true
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 14.3,
+      "error": null
+    },
+    {
+      "id": "O3",
+      "question": "결제하기 누르기 전에 동의해야 하는 게 뭐예요?",
+      "expected": "ORDER_PAY",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_order_policy"
+      ],
+      "category": "ORDER_PAY",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_order_policy"
+      ],
+      "tools_ok": true,
+      "answer": "결제 전에 구매 조건 확인 및 결제 진행에 대한 동의, 판매자에게 개인정보를 제3자 제공하는 것에 대한 동의, 개인정보 수집·이용에 대한 동의 세 가지를 확인해야 합니다. [CS-order-7] 별도의 체크박스는 없으며, 「위 주문 내용을 확인하였으며, 개인정보 제공 및 결제에 동의합니다」 문장 아래의 「결제하기」를 누르는 것이 곧 동의입니다. [CS-order-8]",
+      "citations": [
+        "CS-order-7",
+        "CS-order-8"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "답변에 세 가지 동의 항목 내용과 결제하기를 누르는 것이 곧 동의라는 사실이 모두 포함되어 있으며, 별도의 체크박스가 없다고 안내하여 금지 항목을 언급하지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          true,
+          true
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 12.7,
+      "error": null
+    },
+    {
+      "id": "O4",
+      "question": "결제는 어떤 방법으로 하나요?",
+      "expected": "ORDER_PAY",
+      "boundary": null,
+      "expected_action": "ESCALATE",
+      "expected_tools": [
+        "get_order_policy"
+      ],
+      "category": "ORDER_PAY",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ESCALATE",
+      "called_tools": [
+        "get_order_policy"
+      ],
+      "tools_ok": true,
+      "answer": "결제수단의 종류에 대해서는 정해진 값이 없어 안내해 드릴 수 없습니다.",
+      "citations": [],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": "answer",
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "must 항목은 없으며, 답변에서 결제 수단에 대해 정해진 값이 없다고 안내하였으므로 forbid 항목의 결제 방식들을 사실로 언급하지 않았습니다.",
+        "judge_called": true,
+        "must_results": [],
+        "forbid_hits": [
+          false,
+          false,
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 9.1,
+      "error": null
+    },
+    {
+      "id": "P1",
+      "question": "상품정보제공고시는 어디서 봐요?",
+      "expected": "PRODUCT",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_product_policy"
+      ],
+      "category": "PRODUCT",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_product_policy"
+      ],
+      "tools_ok": true,
+      "answer": "상품 상세 화면에 있는 「상품정보제공고시」 탭을 누르시면 해당 내용을 확인하실 수 있습니다. [CS-product-1] 상품정보제공고시는 전자상거래법 13조 4항에 따른 법정 필수 항목입니다. [CS-product-4]",
+      "citations": [
+        "CS-product-1",
+        "CS-product-4"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "상품 상세 화면의 상품정보제공고시 탭에서 확인 가능하다는 내용이 답변에 명확히 포함되어 있으며, 별도 문서 파일로 내려받아야 한다는 금지 내용은 언급되지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          true
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 10.6,
+      "error": null
+    },
+    {
+      "id": "P2",
+      "question": "옵션에 품절이라고 뜨는데 그래도 주문할 수 있어요?",
+      "expected": "PRODUCT",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_product_policy"
+      ],
+      "category": "PRODUCT",
+      "secondary": "ORDER_PAY",
+      "confidence": 0.85,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_product_policy",
+        "get_order_policy"
+      ],
+      "tools_ok": false,
+      "answer": "재고가 0인 옵션은 옵션 목록에 「품절」로 표시되어 고를 수 없습니다. [CS-product-6] 모든 옵션이 품절인 경우 구매 버튼이 「품절」로 바뀌어 눌리지 않습니다. [CS-product-7] 품절된 옵션은 주문서 주소를 직접 열어도 주문서가 열리지 않고 상품 화면으로 돌아갑니다. [CS-product-8]",
+      "citations": [
+        "CS-product-6",
+        "CS-product-7",
+        "CS-product-8"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "품절된 옵션은 선택할 수 없다는 내용과 주문서 주소로 직접 접속해도 주문이 불가하고 돌아간다는 사실이 모두 반영되었으며, 대기 주문 접수 관련 금지 내용은 언급되지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          true,
+          true
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 18.1,
+      "error": null
+    },
+    {
+      "id": "P3",
+      "question": "구매하기 버튼이 안 눌러져요",
+      "expected": "PRODUCT",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_product_policy"
+      ],
+      "category": "PRODUCT",
+      "secondary": null,
+      "confidence": 0.93,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_product_policy"
+      ],
+      "tools_ok": true,
+      "answer": "옵션이 모두 품절이면 구매 버튼이 「품절」로 바뀌어 눌리지 않습니다. [CS-product-7] 또한, 지금 살 수 없는 상품은 구매 버튼이 비활성화되고 「판매 예정」, 「판매 종료」, 「판매 중이 아닙니다」와 같은 이유 문구가 나옵니다. [CS-product-10]",
+      "citations": [
+        "CS-product-7",
+        "CS-product-10"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "답변에 살 수 없는 상품일 때 버튼 비활성화 및 이유 문구 노출 내용과 옵션 품절 시 버튼이 눌리지 않는다는 사실이 모두 포함되어 있으며, 새로고침 관련 금지 내용은 언급되지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          true,
+          true
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 10.3,
+      "error": null
+    },
+    {
+      "id": "P4",
+      "question": "품절이던 거 다시 들어오면 언제쯤 받을 수 있어요?",
+      "expected": "PRODUCT",
+      "boundary": null,
+      "expected_action": "ESCALATE",
+      "expected_tools": [
+        "get_product_policy"
+      ],
+      "category": "PRODUCT",
+      "secondary": "SHIPPING",
+      "confidence": 0.78,
+      "action": "ESCALATE",
+      "called_tools": [
+        "get_product_policy",
+        "get_shipping_policy"
+      ],
+      "tools_ok": false,
+      "answer": "문의하신 품절 상품의 재입고 일정과 재입고 알림 기능은 정해진 값이 없어 안내해 드릴 수 없습니다. 담당자에게 문의를 전달하겠습니다.",
+      "citations": [],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": "answer",
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "must 항목은 없으며, forbid에 포함된 9월 15일 재입고 예정일이나 재입고 알림 신청 가능 여부를 사실로 긍정하여 안내하지 않았으므로 모두 미위반(false)입니다.",
+        "judge_called": true,
+        "must_results": [],
+        "forbid_hits": [
+          false,
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 12.8,
+      "error": null
+    },
+    {
+      "id": "S1",
+      "question": "주문하면 언제 출고돼요?",
+      "expected": "SHIPPING",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_shipping_policy"
+      ],
+      "category": "SHIPPING",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_shipping_policy"
+      ],
+      "tools_ok": true,
+      "answer": "상품은 결제 후 n영업일 이내에 출고됩니다.[CS-shipping-1] 출고 기한은 판매자가 1영업일부터 14영업일 사이로 정하며, 따로 정하지 않으면 3영업일이 기본이므로 상품마다 다를 수 있습니다.[CS-shipping-2] 도착일은 예측해서 알려 드리지 않고, 결제 후 출고까지의 기한만 안내해 드립니다.[CS-shipping-4]",
+      "citations": [
+        "CS-shipping-1",
+        "CS-shipping-2",
+        "CS-shipping-4"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": false,
+        "reason": "must 0번의 상품 상세에서 확인한다는 내용이 답변에 누락되어 미충족되었으며, 판매자가 출고 기한을 정해 상품마다 다를 수 있다는 must 1번은 충족되었습니다. forbid 항목은 언급되지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          false,
+          true
+        ],
+        "forbid_hits": [
+          false,
+          false
+        ]
+      },
+      "answer_ok": false,
+      "seconds": 10.4,
+      "error": null
+    },
+    {
+      "id": "S2",
+      "question": "배송비 따로 내야 하나요?",
+      "expected": "SHIPPING",
+      "boundary": "CANCEL_REFUND",
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_shipping_policy",
+        "get_cancel_policy"
+      ],
+      "category": "SHIPPING",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_shipping_policy"
+      ],
+      "tools_ok": false,
+      "answer": "배송비는 따로 없습니다. [CS-shipping-3] 상품 상세에도 「무료배송」이라고 보입니다. [CS-shipping-3]",
+      "citations": [
+        "CS-shipping-3",
+        "CS-shipping-3"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": false,
+        "reason": "배송비가 없고 무료배송이라는 점은 답변에 명시되었으나, 단순 변심 반품·교환 시 배송비 청구에 대한 내용은 포함되지 않았습니다. 금지된 배송비 3,000원 부과 관련 언급은 없습니다.",
+        "judge_called": true,
+        "must_results": [
+          true,
+          false
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": false,
+      "seconds": 8.8,
+      "error": null
+    },
+    {
+      "id": "S3",
+      "question": "주문내역에 배송중이랑 취소됨이 같이 떠요. 뭐가 맞는 거예요?",
+      "expected": "SHIPPING",
+      "boundary": "CANCEL_REFUND",
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_shipping_policy",
+        "get_cancel_policy"
+      ],
+      "category": "SHIPPING",
+      "secondary": "CANCEL_REFUND",
+      "confidence": 0.82,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_shipping_policy",
+        "get_cancel_policy"
+      ],
+      "tools_ok": true,
+      "answer": "주문이 취소된 경우에는 배송 상태가 무엇이든 「취소됨」이 먼저 보입니다. [CS-shipping-6] 따라서 「배송중」과 「취소됨」이 함께 보이는 경우 「취소됨」이 현재 상태입니다. [CS-shipping-6]",
+      "citations": [
+        "CS-shipping-6",
+        "CS-shipping-6"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "답변에 취소된 주문은 배송 상태와 무관하게 취소됨이 먼저 보인다는 점과 취소됨이 현재 상태라는 내용이 모두 포함되어 있으며, 금지된 내용은 언급되지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          true,
+          true
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 17.0,
+      "error": null
+    },
+    {
+      "id": "S4",
+      "question": "배송이 너무 늦어지면 보상 같은 거 받을 수 있나요?",
+      "expected": "SHIPPING",
+      "boundary": null,
+      "expected_action": "ESCALATE",
+      "expected_tools": [
+        "get_shipping_policy"
+      ],
+      "category": "SHIPPING",
+      "secondary": "CANCEL_REFUND",
+      "confidence": 0.82,
+      "action": "ESCALATE",
+      "called_tools": [
+        "get_shipping_policy",
+        "get_cancel_policy"
+      ],
+      "tools_ok": false,
+      "answer": "배송이 늦어질 때의 보상이나 출고 기한을 넘긴 경우의 처리에 대해서는 정해진 값이 없어 안내해 드릴 수 없습니다.",
+      "citations": [],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": "answer",
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "must 항목이 없으며, 답변에서 쿠폰 및 적립금 지급이나 지연 보상에 대해 정해진 바가 없다고 명시하여 forbid 항목을 언급하지 않았습니다.",
+        "judge_called": true,
+        "must_results": [],
+        "forbid_hits": [
+          false,
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 12.8,
+      "error": null
+    },
+    {
+      "id": "C1",
+      "question": "방금 주문했는데 바로 취소돼요?",
+      "expected": "CANCEL_REFUND",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_cancel_policy"
+      ],
+      "category": "CANCEL_REFUND",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_cancel_policy"
+      ],
+      "tools_ok": true,
+      "answer": "배송 상태가 「준비중」인 주문은 주문 상세에서 「주문 취소」 버튼으로 직접 취소할 수 있습니다.[CS-cancel-1] 확인 창에서 확정하면 바로 취소되며, 판매자의 승인을 기다리는 단계는 없습니다.[CS-cancel-1]",
+      "citations": [
+        "CS-cancel-1",
+        "CS-cancel-1"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "must 항목의 직접 즉시 취소 가능 여부와 판매자 승인 단계가 없다는 사실이 모두 잘 설명되어 있으며, forbid 항목에 해당하는 내용은 언급되지 않았거나 명확히 부정되었습니다.",
+        "judge_called": true,
+        "must_results": [
+          true,
+          true
+        ],
+        "forbid_hits": [
+          false,
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 10.6,
+      "error": null
+    },
+    {
+      "id": "C2",
+      "question": "개당 10,900원짜리 3개 주문했는데 1개만 취소하면 얼마 돌려받아요?",
+      "expected": "CANCEL_REFUND",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_cancel_policy"
+      ],
+      "category": "CANCEL_REFUND",
+      "secondary": null,
+      "confidence": 0.93,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_cancel_policy"
+      ],
+      "tools_ok": true,
+      "answer": "수량이 2개 이상인 주문은 취소할 수량을 1개부터 남은 수량까지 골라 일부만 취소할 수 있습니다. [CS-cancel-2] 일부 취소의 환불액은 취소 수량에 단가를 곱한 금액이므로, 1개를 취소하시면 10,900원이 환불됩니다. [CS-cancel-3]",
+      "citations": [
+        "CS-cancel-2",
+        "CS-cancel-3"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "답변에 2개 이상일 때 일부 취소가 가능하다는 점과 환불액이 단가에 취소 수량을 곱한 10,900원이라는 점이 모두 명시되어 있으며, 금지된 전체 취소만 가능하다는 내용은 언급되지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          true,
+          true
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 10.2,
+      "error": null
+    },
+    {
+      "id": "C3",
+      "question": "이미 배송 시작됐는데 취소나 반품은 어떻게 해요?",
+      "expected": "CANCEL_REFUND",
+      "boundary": null,
+      "expected_action": "ANSWER",
+      "expected_tools": [
+        "get_cancel_policy"
+      ],
+      "category": "CANCEL_REFUND",
+      "secondary": null,
+      "confidence": 0.93,
+      "action": "ANSWER",
+      "called_tools": [
+        "get_cancel_policy"
+      ],
+      "tools_ok": true,
+      "answer": "배송이 시작된 주문은 취소할 수 없습니다. [CS-cancel-7] 배송이 시작된 뒤의 반품은 주문 화면에서 직접 신청하는 기능이 아직 없으며, 문의처를 안내하는 데까지만 제공합니다. [CS-cancel-8]",
+      "citations": [
+        "CS-cancel-7",
+        "CS-cancel-8"
+      ],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": null,
+      "final_recheck": [],
+      "grade": {
+        "pass": false,
+        "reason": "배송 시작 후 취소 불가와 주문 화면 내 직접 반품 신청 기능 부재 및 문의처 안내 사실은 언급되었으나, 단순 변심 시 배송비 청구 내용은 답변에 포함되지 않았습니다.",
+        "judge_called": true,
+        "must_results": [
+          true,
+          true,
+          false
+        ],
+        "forbid_hits": [
+          false
+        ]
+      },
+      "answer_ok": false,
+      "seconds": 14.0,
+      "error": null
+    },
+    {
+      "id": "C4",
+      "question": "취소하면 환불금은 며칠 뒤에 들어와요?",
+      "expected": "CANCEL_REFUND",
+      "boundary": null,
+      "expected_action": "ESCALATE",
+      "expected_tools": [
+        "get_cancel_policy"
+      ],
+      "category": "CANCEL_REFUND",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ESCALATE",
+      "called_tools": [
+        "get_cancel_policy"
+      ],
+      "tools_ok": true,
+      "answer": "환불금이 들어오는 기간과 방법은 정해진 값이 없어 안내해 드릴 수 없습니다. 자세한 내용은 고객센터로 문의해 주시기 바랍니다.",
+      "citations": [],
+      "retries": 0,
+      "verify_violations": [
+        []
+      ],
+      "escalated_by": "answer",
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "must 항목이 없으며, forbid에 포함된 영업일 3일 이내 환불이나 즉시 입금 등의 내용을 언급하지 않았습니다.",
+        "judge_called": true,
+        "must_results": [],
+        "forbid_hits": [
+          false,
+          false
+        ]
+      },
+      "answer_ok": true,
+      "seconds": 8.9,
+      "error": null
+    },
+    {
+      "id": "X1",
+      "question": "쿠폰이나 적립금 쓸 수 있어요?",
+      "expected": "OUT_OF_SCOPE",
+      "boundary": null,
+      "expected_action": "ESCALATE",
+      "expected_tools": [],
+      "category": "OUT_OF_SCOPE",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ESCALATE",
+      "called_tools": [],
+      "tools_ok": true,
+      "answer": "죄송합니다. 문의하신 내용은 이 안내만으로 정확하게 답변드리기 어려워 담당자에게 넘겨 드리겠습니다. 고객센터를 통해 안내받으실 수 있습니다.",
+      "citations": [],
+      "retries": 0,
+      "verify_violations": [],
+      "escalated_by": "escalate",
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "표준 이관 문구",
+        "judge_called": false
+      },
+      "answer_ok": true,
+      "seconds": 4.0,
+      "error": null
+    },
+    {
+      "id": "X2",
+      "question": "제가 만든 상품을 여기서 팔고 싶은데 어떻게 입점해요?",
+      "expected": "OUT_OF_SCOPE",
+      "boundary": null,
+      "expected_action": "ESCALATE",
+      "expected_tools": [],
+      "category": "OUT_OF_SCOPE",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ESCALATE",
+      "called_tools": [],
+      "tools_ok": true,
+      "answer": "죄송합니다. 문의하신 내용은 이 안내만으로 정확하게 답변드리기 어려워 담당자에게 넘겨 드리겠습니다. 고객센터를 통해 안내받으실 수 있습니다.",
+      "citations": [],
+      "retries": 0,
+      "verify_violations": [],
+      "escalated_by": "escalate",
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "표준 이관 문구",
+        "judge_called": false
+      },
+      "answer_ok": true,
+      "seconds": 3.0,
+      "error": null
+    },
+    {
+      "id": "X3",
+      "question": "제휴링크 수수료는 언제 정산돼요?",
+      "expected": "OUT_OF_SCOPE",
+      "boundary": null,
+      "expected_action": "ESCALATE",
+      "expected_tools": [],
+      "category": "OUT_OF_SCOPE",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ESCALATE",
+      "called_tools": [],
+      "tools_ok": true,
+      "answer": "죄송합니다. 문의하신 내용은 이 안내만으로 정확하게 답변드리기 어려워 담당자에게 넘겨 드리겠습니다. 고객센터를 통해 안내받으실 수 있습니다.",
+      "citations": [],
+      "retries": 0,
+      "verify_violations": [],
+      "escalated_by": "escalate",
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "표준 이관 문구",
+        "judge_called": false
+      },
+      "answer_ok": true,
+      "seconds": 3.6,
+      "error": null
+    },
+    {
+      "id": "X4",
+      "question": "회원 탈퇴하고 내 정보 다 지우고 싶어요",
+      "expected": "OUT_OF_SCOPE",
+      "boundary": null,
+      "expected_action": "ESCALATE",
+      "expected_tools": [],
+      "category": "OUT_OF_SCOPE",
+      "secondary": null,
+      "confidence": 0.95,
+      "action": "ESCALATE",
+      "called_tools": [],
+      "tools_ok": true,
+      "answer": "죄송합니다. 문의하신 내용은 이 안내만으로 정확하게 답변드리기 어려워 담당자에게 넘겨 드리겠습니다. 고객센터를 통해 안내받으실 수 있습니다.",
+      "citations": [],
+      "retries": 0,
+      "verify_violations": [],
+      "escalated_by": "escalate",
+      "final_recheck": [],
+      "grade": {
+        "pass": true,
+        "reason": "표준 이관 문구",
+        "judge_called": false
+      },
+      "answer_ok": true,
+      "seconds": 3.4,
+      "error": null
+    }
+  ]
+}
