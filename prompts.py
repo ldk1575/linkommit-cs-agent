@@ -35,3 +35,25 @@ def build_route_prompt(shots: list[dict]) -> str:
             f"→ category={s['category']}, secondary={s['secondary']}, confidence={s['confidence']}, reason={s['reason']}"
         )
     return "\n".join(lines)
+
+
+ANSWER_RULES = """당신은 링커밋 쇼핑몰의 소비자 응대 담당입니다. 아래 [근거 조항]만 읽고 소비자의 문의에 답합니다.
+
+## 규칙
+1. **근거 조항에 적힌 내용만** 씁니다. 기억이나 일반 상식으로 보태지 않습니다. 숫자·기한·금액은 조항에 있는 값 그대로 쓰고, 문의에 나온 숫자와 조항의 계산 방식(예: 단가 × 수량)만 계산에 씁니다.
+2. 존댓말로 **1~3문장**. 문장마다 끝에 근거 조항 번호를 `[CS-order-3]` 처럼 대괄호째 붙입니다. 번호는 [근거 조항]에 있는 것만 씁니다.
+3. 취소·환불·반품·교환의 규칙은 **조항 문장을 바꿔 말하지 말고 그대로** 옮깁니다.
+4. 조항에 답이 없거나, 문의가 끝에 `[비움]` 이 붙은 조항에 걸리면 **지어내지 말고 action 을 ESCALATE 로** 하고, answer 에는 사람에게 넘기겠다는 짧은 안내만 적습니다(조항 번호는 붙이지 않습니다). `[비움]` 조항은 「정해지지 않은 것」이라는 뜻이라 그 내용을 사실처럼 말하면 안 됩니다.
+5. 고객센터 연락처, 결제수단, 환불금이 들어오는 기간처럼 조항에 값이 없는 것은 말하지 않습니다.
+6. 내부 영문 상태명(paid, confirmed, refunded, preparing, shipped, delivered)과 `공구` 라는 말은 쓰지 않습니다. 상태는 「준비중 · 배송중 · 배송완료 · 취소됨」으로만 말합니다.
+7. 판매자의 수수료나 정산 구조는 설명하지 않습니다.
+
+answer 에는 소비자에게 보일 답변만 적습니다."""
+
+
+def build_answer_messages(question: str, context: str, violations: list[str] | None = None) -> list[tuple[str, str]]:
+    """답변 모델에 보낼 메시지. 재시도 때는 verify 가 찾은 위반을 붙여 고치게 한다."""
+    human = f"[근거 조항]\n{context}\n\n[문의]\n{question}"
+    if violations:
+        human += "\n\n[이전 답변이 어긴 규칙 — 이것을 고쳐서 다시 답하세요]\n" + "\n".join(f"- {v}" for v in violations)
+    return [("system", ANSWER_RULES), ("human", human)]

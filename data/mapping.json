@@ -1,5 +1,8 @@
 {
-  "always": ["common", "scope"],
+  "always": [
+    "common",
+    "scope"
+  ],
   "chapters": {
     "common": "0-common.md",
     "order": "1-order-pay.md",
@@ -9,14 +12,126 @@
     "scope": "9-out-of-scope.md"
   },
   "categories": {
-    "ORDER_PAY": {"label": "주문·결제", "chapter": "order", "tool": "get_order_policy"},
-    "PRODUCT": {"label": "상품·재고", "chapter": "product", "tool": "get_product_policy"},
-    "SHIPPING": {"label": "배송", "chapter": "shipping", "tool": "get_shipping_policy"},
-    "CANCEL_REFUND": {"label": "취소·반품·교환·환불", "chapter": "cancel", "tool": "get_cancel_policy"},
-    "OUT_OF_SCOPE": {"label": "범위 밖", "chapter": "scope", "tool": null}
+    "ORDER_PAY": {
+      "label": "주문·결제",
+      "chapter": "order",
+      "tool": "get_order_policy"
+    },
+    "PRODUCT": {
+      "label": "상품·재고",
+      "chapter": "product",
+      "tool": "get_product_policy"
+    },
+    "SHIPPING": {
+      "label": "배송",
+      "chapter": "shipping",
+      "tool": "get_shipping_policy"
+    },
+    "CANCEL_REFUND": {
+      "label": "취소·반품·교환·환불",
+      "chapter": "cancel",
+      "tool": "get_cancel_policy"
+    },
+    "OUT_OF_SCOPE": {
+      "label": "범위 밖",
+      "chapter": "scope",
+      "tool": null
+    }
   },
   "exclusive_terms": [
-    "영업일", "출고", "운송장", "택배", "무료배송", "배송비",
-    "환불", "취소", "반품", "교환", "품절", "재고", "남은 수량"
-  ]
+    "영업일",
+    "출고",
+    "운송장",
+    "택배",
+    "무료배송",
+    "배송비",
+    "환불",
+    "취소",
+    "반품",
+    "교환",
+    "품절",
+    "재고",
+    "남은 수량"
+  ],
+  "blank_cues": {
+    "CS-common-7": [
+      "전화",
+      "운영시간",
+      "상담 시간"
+    ],
+    "CS-common-8": [
+      "사업자등록번호"
+    ],
+    "CS-order-13": [
+      "카드",
+      "페이",
+      "계좌",
+      "이체",
+      "무통장",
+      "간편결제",
+      "휴대폰 결제"
+    ],
+    "CS-order-14": [
+      "영수증"
+    ],
+    "CS-product-13": [
+      "재입고",
+      "입고 예정",
+      "다시 입고"
+    ],
+    "CS-product-14": [
+      "문의 게시판",
+      "문의 탭에서",
+      "질문하기"
+    ],
+    "CS-shipping-11": [
+      "보상",
+      "적립금",
+      "쿠폰"
+    ],
+    "CS-shipping-12": [
+      "도서산간",
+      "제주",
+      "추가 배송비",
+      "추가 운임"
+    ],
+    "CS-shipping-13": [
+      "CJ",
+      "한진",
+      "롯데택배",
+      "우체국",
+      "로젠",
+      "대한통운",
+      "택배사는"
+    ],
+    "CS-cancel-13": [
+      "입금",
+      "이내에 환불",
+      "이내 환불",
+      "계좌로",
+      "카드사"
+    ],
+    "CS-cancel-14": [
+      "신청하려면",
+      "신청 방법은",
+      "접수하",
+      "회수",
+      "수거"
+    ],
+    "CS-cancel-15": [
+      "왕복 배송비",
+      "편도"
+    ],
+    "CS-cancel-16": [
+      "판매자가 부담",
+      "판매자 부담",
+      "소비자가 부담",
+      "구매자가 부담",
+      "불량"
+    ],
+    "CS-scope-6": [
+      "담당 부서",
+      "처리까지"
+    ]
+  }
 }

@@ -22,7 +22,7 @@ RESULTS_DIR = context.ROOT / "results"
 def _one(item: dict) -> dict:
     t = time.time()
     try:
-        s = agent.run(item["question"])
+        s = agent.run(item["question"], until="gate")
         return {"id": item["id"], "category": s.get("category"), "secondary": s.get("secondary"),
                 "confidence": s.get("confidence"), "reason": s.get("reason"), "action": s.get("action"),
                 "seconds": round(time.time() - t, 1), "error": None}
