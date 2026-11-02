@@ -57,3 +57,23 @@ def build_answer_messages(question: str, context: str, violations: list[str] | N
     if violations:
         human += "\n\n[이전 답변이 어긴 규칙 — 이것을 고쳐서 다시 답하세요]\n" + "\n".join(f"- {v}" for v in violations)
     return [("system", ANSWER_RULES), ("human", human)]
+
+
+JUDGE_RULES = """당신은 소비자 응대 답변의 채점자입니다. 문의, 답변, 답변에 담겨야 할 사실 목록(must), 말하면 안 되는 내용 목록(forbid)을 받습니다.
+
+## 채점 방법
+1. **표현이 아니라 사실을 봅니다.** must 의 사실이 답변에 같은 뜻으로 들어 있으면 충족입니다. 말투, 문장 수, 순서, 조항 번호(`[CS-…]`)가 있는지는 보지 않습니다.
+2. must_results[i] — i번째 must 가 답변에 담겼으면 true, 아니면 false. 목록 순서와 개수를 그대로 지킵니다.
+3. forbid_hits[i] — 답변이 i번째 forbid 의 내용을 **사실로 말하면** true. 그 내용을 부정하거나(「…하지 않습니다」), 「정해진 내용이 없다」고 하면 false 입니다. 목록 순서와 개수를 그대로 지킵니다.
+4. 당신의 상식으로 맞고 틀림을 따지지 않습니다. 답변이 must · forbid 와 같은 뜻인지만 비교합니다. 답변에 없는 내용은 추측하지 않습니다.
+5. 답변이 사람에게 넘기겠다는 안내(담당자 전달 등)라면 must 가 비어 있으니 forbid 만 봅니다.
+
+reason 에는 판단 근거를 한두 문장으로 적습니다."""
+
+
+def build_judge_messages(item: dict, answer: str) -> list[tuple[str, str]]:
+    must = "\n".join(f"{i}. {m}" for i, m in enumerate(item["must"])) or "(없음)"
+    forbid = "\n".join(f"{i}. {f}" for i, f in enumerate(item["forbid"])) or "(없음)"
+    human = (f"[문의]\n{item['question']}\n\n[답변]\n{answer}\n\n"
+             f"[must — {len(item['must'])}개]\n{must}\n\n[forbid — {len(item['forbid'])}개]\n{forbid}")
+    return [("system", JUDGE_RULES), ("human", human)]

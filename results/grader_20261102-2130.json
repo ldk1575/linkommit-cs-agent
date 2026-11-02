@@ -1,0 +1,348 @@
+{
+  "measured_at": "2026-11-02 21:30",
+  "kind": "grader",
+  "tag": "grader-check",
+  "models": {
+    "router": "openai:gemini-flash-latest",
+    "answer": "openai:gemini-2.5-flash",
+    "judge": "openai:gemini-flash-latest"
+  },
+  "gate_threshold": 0.5,
+  "ok": false,
+  "items": [
+    {
+      "kind": "모범",
+      "id": "O1",
+      "pass": true,
+      "reason": "답변에 옵션을 직접 골라야 하고 기본 옵션이 자동 선택되지 않는다는 점과, 고르지 않을 시 안내가 나온다는 점이 모두 명시되어 있으며 금지 항목은 부정하여 언급되었습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "O2",
+      "pass": true,
+      "reason": "답변에 재고까지만 주문할 수 있다는 내용과 재고보다 많은 수량은 선택 불가하며 남은 수량이 표시된다는 내용이 모두 포함되어 있고, 금지된 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "O3",
+      "pass": true,
+      "reason": "답변에 세 가지 동의 항목과 결제하기를 누르는 것이 동의라는 내용이 모두 포함되어 있으며, 별도 체크박스 없이 진행된다고 명시하여 금지 내용을 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "O4",
+      "pass": true,
+      "reason": "must 항목이 없으며, 답변은 결제 방법에 대해 정해진 내용이 없다고 안내하고 담당자에게 이관하므로 forbid 항목의 결제 수단들을 사실로 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "P1",
+      "pass": true,
+      "reason": "상품 상세의 상품정보제공고시 탭에서 확인할 수 있다는 점과 항목이 표로 보인다는 사실이 모두 답변에 포함되었으며, 별도 문서 파일 다운로드 등 금지된 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "P2",
+      "pass": true,
+      "reason": "답변에 품절 옵션을 고를 수 없다는 내용과 주소를 직접 열어도 품절 안내와 함께 상품 화면으로 돌아가 주문할 수 없다는 내용이 모두 포함되어 있으며, 대기 주문으로 접수된다는 금지 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "P3",
+      "pass": true,
+      "reason": "답변에 지금 살 수 없는 상품일 때 구매 버튼이 비활성화되고 이유 문구가 나온다는 내용과 옵션이 모두 품절이면 버튼이 눌리지 않는다는 내용이 모두 포함되어 있으며, 새로고침 관련 금지 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "P4",
+      "pass": true,
+      "reason": "must 항목은 없으며, 답변에서 forbid 항목인 9월 15일 입고 예정일이나 재입고 알림 신청에 대해 언급하지 않고 담당자 전달을 안내했습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "S1",
+      "pass": true,
+      "reason": "답변에 상품 상세에서 n영업일 이내 출고 문구를 확인할 수 있다는 점과 출고 기한은 판매자가 정해 상품마다 다를 수 있다는 내용이 모두 명시되어 있으며, 금지된 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "S2",
+      "pass": true,
+      "reason": "답변에 무료배송이라는 점과 단순 변심 반품/교환 시 배송비가 청구된다는 사실이 모두 포함되어 있으며, forbid에 해당하는 배송비 3,000원 부과 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "S3",
+      "pass": true,
+      "reason": "답변에 취소된 주문은 배송 상태와 무관하게 '취소됨'이 먼저 보인다는 점과 현재 상태가 '취소됨'이라는 사실이 모두 명시되어 있으며, 금지된 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "S4",
+      "pass": true,
+      "reason": "배송 지연 보상에 대해 정해진 내용이 없어 담당자에게 인계하겠다고 응대하였으며, 금지된 보상 관련 내용을 사실로 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "C1",
+      "pass": true,
+      "reason": "배송 상태가 준비중일 때 주문 상세에서 즉시 취소 가능하다는 내용과 판매자 승인 단계가 없다는 사실이 모두 잘 포함되었으며, 금지 항목은 언급되지 않았거나 부정되었습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "C2",
+      "pass": true,
+      "reason": "답변에 수량이 2개 이상인 경우 일부 취소가 가능하다는 점과 환불액이 취소 수량에 단가를 곱한 10,900원이라는 점이 모두 명시되어 있으며, forbid에 해당하는 전체 취소만 된다는 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "C3",
+      "pass": false,
+      "reason": "배송 시작 후 취소 불가 및 단순 변심 시 배송비 청구 내용은 충족되었으나, 반품·교환이 문의로 안내된다는 사실은 누락되었습니다. 금지 항목인 직접 신청 가능 여부는 부정하였으므로 위반이 없습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        false,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "C4",
+      "pass": true,
+      "reason": "must 항목이 없으며, 답변에서 환불 일정에 대해 확정된 사실을 언급하지 않고 담당자 이관을 안내하여 금지 항목을 위반하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "X1",
+      "pass": true,
+      "reason": "답변은 담당자 이관 안내만 하고 있으며, forbid에 해당하는 신규 가입 쿠폰 유무나 적립금 적립에 대한 내용을 전혀 사실로 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "X2",
+      "pass": true,
+      "reason": "must 항목이 없으며, 답변에서 입점 신청 절차나 서류를 안내하지 않고 담당자 전달을 안내했으므로 forbid 항목에 해당하지 않습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "X3",
+      "pass": true,
+      "reason": "must 항목이 없으며, 답변에서 정산 일정이나 수수료율을 안내하지 않고 담당자 이관을 안내했으므로 금지 항목을 위반하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "모범",
+      "id": "X4",
+      "pass": true,
+      "reason": "담당자 전달 안내로 must 항목이 없으며, forbid에 해당하는 마이페이지 탈퇴 메뉴 관련 내용을 언급하지 않았습니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "오답",
+      "id": "O1",
+      "pass": false,
+      "reason": "must의 두 항목은 답변에 잘 설명되어 있으나, 답변 말미에 forbid 항목인 '기본 옵션이 자동으로 선택된다'는 내용이 그대로 서술되어 있어 금지 사항을 위반했습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        true
+      ]
+    },
+    {
+      "kind": "오답",
+      "id": "C2",
+      "pass": false,
+      "reason": "답변에 수량 2개 이상 시 일부 취소 가능 및 환불액 계산(10,900원) 내용이 모두 포함되어 must 항목을 충족했으나, 금지 항목인 '일부 취소는 안 되고 전체 취소만 된다'는 내용도 사실로 언급하였습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        true
+      ]
+    },
+    {
+      "kind": "오답",
+      "id": "O4",
+      "pass": false,
+      "reason": "must 항목은 없으며, 답변에 '신용카드로 결제할 수 있다'는 내용이 직접 명시되어 있어 forbid 0번 항목에 해당합니다.",
+      "judge_called": true,
+      "must_results": [],
+      "forbid_hits": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "kind": "사실 누락",
+      "id": "O1",
+      "pass": false,
+      "reason": "답변에 옵션 직접 선택 여부 및 미선택 시 주문 진행 불가 안내 등 must 항목의 사실이 전혀 포함되어 있지 않으며, forbid 항목도 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        false,
+        false
+      ],
+      "forbid_hits": [
+        false
+      ]
+    },
+    {
+      "kind": "표현만 바꿈",
+      "id": "O1",
+      "pass": true,
+      "reason": "답변에서 소비자가 옵션을 직접 선택해야 하고 선택 전에는 구매가 진행되지 않아 기본 옵션 자동 선택이 되지 않음을 안내하였으며, 선택하지 않을 시 안내 문구가 나온다는 사실도 충족했습니다. 금지 내용은 언급되지 않았습니다.",
+      "judge_called": true,
+      "must_results": [
+        true,
+        true
+      ],
+      "forbid_hits": [
+        false
+      ]
+    }
+  ]
+}
