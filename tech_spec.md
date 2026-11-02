@@ -136,3 +136,4 @@ flowchart TD
 3. 조치 `action` 에 **`BLOCK`**(카드번호 모양 입력) 값을 더했다. 평가셋 `action` 은 `ANSWER` · `ESCALATE` 만 쓴다.
 4. 폴더에 **`results/`**(측정 결과 JSON) · **`report-img/`**(REPORT 의 화면 캡처)를 더했다.
 5. 조항 이름표 `slug` 를 `common` `order` `product` `shipping` `cancel` `scope` 로 정했다.
+6. 키가 없을 때 `agent.run` 이 `action="NO_KEY"` 와 안내 문구를 돌려준다(순서 4 에서 추가). 에이전트가 답한 것도 넘긴 것도 아니라 `BLOCK` 처럼 값을 하나 더 두었다. 평가셋 `action` 은 `ANSWER` · `ESCALATE` 만 쓴다.
