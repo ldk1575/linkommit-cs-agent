@@ -1,0 +1,10 @@
+[
+  {"id": "F1", "question": "결제 끝나고 나면 내 주문은 어디서 확인해요?", "category": "ORDER_PAY", "secondary": null, "confidence": 0.93, "reason": "결제 뒤 주문을 확인하는 화면은 주문·결제 장의 내용이다"},
+  {"id": "F2", "question": "상품 상세에 설명이 하나도 없는데 원래 그래요?", "category": "PRODUCT", "secondary": null, "confidence": 0.9, "reason": "상품 상세 화면의 표시에 관한 질문이다"},
+  {"id": "F3", "question": "운송장 번호는 어디서 봐요? 택배 조회하고 싶어요", "category": "SHIPPING", "secondary": null, "confidence": 0.95, "reason": "운송장 표시와 조회는 배송 장의 내용이다"},
+  {"id": "F4", "question": "판매자가 제 주문을 취소했다는데 이유가 뭔지 알 수 있나요?", "category": "CANCEL_REFUND", "secondary": null, "confidence": 0.92, "reason": "판매자 사정 취소와 사유 표시는 취소 장의 내용이다"},
+  {"id": "F5", "question": "인스타 보고 왔는데 저도 제휴링크 만들어서 팔 수 있나요?", "category": "OUT_OF_SCOPE", "secondary": null, "confidence": 0.9, "reason": "상품을 소개하는 분의 제휴 문의라 소비자 구매 화면 밖이다"},
+  {"id": "F6", "question": "출고 기한 지났는데 아직 준비중이에요. 그냥 취소해도 돼요?", "category": "SHIPPING", "secondary": "CANCEL_REFUND", "confidence": 0.8, "reason": "출고 기한은 배송 장, 준비중 주문의 취소는 취소 장이라 두 장에 걸친다"},
+  {"id": "F7", "question": "그거 어떻게 된 거예요?", "category": "ORDER_PAY", "secondary": null, "confidence": 0.2, "reason": "무엇을 묻는지 알 수 없어 어느 장인지 정할 수 없다"},
+  {"id": "F8", "question": "로그인이 자꾸 풀리는데 왜 그래요?", "category": "OUT_OF_SCOPE", "secondary": null, "confidence": 0.88, "reason": "로그인·회원 기능은 이 안내가 다루지 않는다"}
+]

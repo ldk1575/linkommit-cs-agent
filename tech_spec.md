@@ -52,7 +52,7 @@ flowchart TD
 - `classify` — `pydantic` 스키마: `category`(`Literal` 5개) · `secondary`(`Literal` 4개 또는 `None`) · `confidence`(0~1) · `reason`. 프롬프트의 예시는 `fewshot.json` 에서만 쓴다(**평가셋 누수 방지**).
 - `gate` — **모델을 부르지 않는다.** `category == OUT_OF_SCOPE` 이거나 `confidence < 임계값`(초기 0.5)이면 `ESCALATE`. 판정과 넘기기 판단을 나눈다(PRD 규칙 4).
 - `assemble` — 읽기 도구를 **코드가 부른다**(모델이 고르지 않는다). 항상 0·9장 + `category` 장 + `secondary` 가 있으면 그 장. 부른 도구 이름을 `called_tools` 에 쌓는다.
-- `answer` — 입력은 문의 · 조회한 조항 본문 · 규칙. 존댓말 1~3문장, 문장 끝에 `[CS-…]`. 환불·취소 규칙은 조항 문장을 그대로 인용하게 지시한다. 재시도 땐 `violations` 를 프롬프트에 붙인다.
+- `answer` — 입력은 문의 · 조회한 조항 본문 · 규칙. 존댓말 1~3문장, 문장 끝에 `[CS-…]`. 환불·취소 규칙은 조항 문장을 그대로 인용하게 지시한다. 조회한 조항에 답이 없거나 질문이 `[비움]` 칸에 걸리면 답을 지어내지 않고 `ESCALATE` 로 응답할 수 있어야 한다(평가셋 `[비움]` 4건의 정답 경로 — 순서 3 에서 추가). 재시도 땐 `violations` 를 프롬프트에 붙인다.
 - `verify` — **모델을 부르지 않는다**(3절).
 - 조건 간선 — `verify` 위반 & `retries == 0` → `answer` 로 되돌림, 위반 & `retries == 1` → `ESCALATE`.
 
@@ -92,7 +92,7 @@ flowchart TD
 ## 5. 평가 구현 (`evaluate.py`)
 
 - **입력** — `goldenset.json` 20건: `{id, category, question, action, tools[], must[], forbid[], boundary?, reference}`.
-- **도구 호출 적절성** — `set(called_tools) == set(tools)` 이면 1점. 범위 밖과 넘기기 문항은 `tools` 가 빈 집합이라 **읽기를 한 번이라도 하면 0점**.
+- **도구 호출 적절성** — `set(called_tools) == set(tools)` 이면 1점. 범위 밖 문항은 `tools` 가 빈 집합이라 **읽기를 한 번이라도 하면 0점**. `[비움]` 때문에 넘기는 문항은 **먼저 읽고 넘긴다**(읽기 먼저, 게이트 B-2)라서 그 카테고리 도구가 기대 도구다 — 읽지 않고 넘기면 0점(2026-11-02 순서 3 에서 고침, 이전 문구는 둘을 한데 묶어 서로 어긋났다).
 - **답변 적절성** — `must` 를 전부 담고 `forbid` 를 하나도 어기지 않으면 1점. 판정은 `CS_JUDGE_MODEL` 이 하고, 지침에 **표현이 아니라 사실을 보라**고 적는다. `ESCALATE` 가 정답인 문항은 `action == ESCALATE` 이면서 `forbid` 가 없을 때 1점.
 - **분류 지표(계산만 해 둔다)** — 정답 카테고리와 `category` 를 비교해 정확도 · macro F1 · 혼동 행렬(`scikit-learn`). 제출에 넣을지는 수업에서 확인(PRD 「수업에서 강사에게 확인할 것」 2).
 - **채점기 자기검증** — `check_grader()` 가 ① `reference` 20건을 채점해 **전부 통과**하는지, ② `reference` 뒤에 그 문항의 `forbid[0]` 을 이어 붙인 **오답 3건**이 전부 **불통과**하는지 본다(P5). 이게 통과한 뒤에만 측정 결과를 믿는다.
